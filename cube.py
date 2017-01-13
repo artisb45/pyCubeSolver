@@ -105,7 +105,7 @@ class Cube(object):
                 self.turn_front()
             if c == 'B':
                 self.turn_back()
-
+#
             
 
 c = Cube()

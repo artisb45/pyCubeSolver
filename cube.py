@@ -78,16 +78,78 @@ class Cube(object):
         self.blue_side[2][2] = temp3
     
     def turn_left(self):
-        return
+        temp1 = self.yellow_side[0][0]
+        temp2 = self.yellow_side[1][0]
+        temp3 = self.yellow_side[2][0]
+
+        self.yellow_side[0][0] = self.blue_side[0][0]
+        self.yellow_side[1][0] = self.blue_side[1][0]
+        self.yellow_side[2][0] = self.blue_side[2][0]
+
+        self.blue_side[0][0] = self.white_side[0][0] 
+        self.blue_side[1][0] = self.white_side[1][0]
+        self.blue_side[2][0] = self.white_side[2][0]
+
+        self.white_side[0][0] = self.green_side[0][0]
+        self.white_side[1][0] = self.green_side[1][0]
+        self.white_side[2][0] = self.green_side[2][0]
+
+        self.green_side[0][0] = temp1
+        self.green_side[1][0] = temp2
+        self.green_side[2][0] = temp3        
 
     def turn_down(self):
-        return
+        temp = self.white_side[0]
+        self.white_side[0] = self.white_side[2]
+        self.white_side[2] = temp
+        ys = zip(*self.white_side)
+        self.white_side = []
+        for i in ys:
+            self.white_side.append(list(i))
+        
+        temp = self.blue_side[2]
+        self.blue_side[2] = self.orange_side[2]
+        self.orange_side[2] = self.green_side[2]
+        self.green_side[2] = self.red_side[2]
+        self.red_side[2] = temp
 
     def turn_front(self):
-        return
+        temp = self.green_side[0]
+        self.green_side[0] = self.green_side[2]
+        self.green_side[2] = temp
+        ys = zip(*self.green_side)
+        self.green_side = []
+        for i in ys:
+            self.green_side.append(list(i))
+
+        temp1 = self.yellow_side[2][0]
+        temp2 = self.yellow_side[2][1]
+        temp3 = self.yellow_side[2][2]
+
+        self.yellow_side[2][2] = self.red_side[0][2]
+        self.yellow_side[2][1] = self.red_side[1][2]
+        self.yellow_side[2][0] = self.red_side[2][2]
+
+        self.red_side[0][2] = self.white_side[0][0]
+        self.red_side[1][2] = self.white_side[0][1]
+        self.red_side[2][2] = self.white_side[0][2]
+
+        self.white_side[0][0] = self.orange_side[2][0]
+        self.white_side[0][1] = self.orange_side[1][0]  
+        self.white_side[0][2] = self.orange_side[0][0]  
+        
+        self.orange_side[2][0] = temp3
+        self.orange_side[1][0] = temp2
+        self.orange_side[0][0] = temp1
 
     def turn_back(self):
-        return
+        temp = self.blue_side[0]
+        self.blue_side[0] = self.blue_side[2]
+        self.blue_side[2] = temp
+        ys = zip(*self.blue_side)
+        self.blue_side = []
+        for i in ys:
+            self.blue_side.append(list(i))
         
     def solve(self, formula):
         print("\033c")
@@ -105,10 +167,9 @@ class Cube(object):
                 self.turn_front()
             if c == 'B':
                 self.turn_back()
-#
             
 
 c = Cube()
 print(c)
-c.solve('U R U')
+c.turn_front()
 print(c)
